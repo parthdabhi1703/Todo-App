@@ -188,10 +188,10 @@ input[type="checkbox"] {
 
   .delete-button svg {
     transition: ease;
+    fill: rgba(255, 0, 0, 0.5);
   }
 
   .delete-button:active svg {
-    fill: rgba(255, 0, 0, 0.6);
     transform: scale(0.95);
   }
 
