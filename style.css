@@ -1,7 +1,7 @@
 :root {
   --background: #101114;
   --primary-color: #1c1d20;
-  --secondary-color: #4a4d57;
+  --secondary-color: #606060;
   --accent-color: #00ffc4;
   --text-color: #f9f9f9;
 }
@@ -24,7 +24,7 @@ html {
 }
 
 body {
-  min-height: 80vh;
+  min-height: 90vh;
   padding: 40px 10px 20px 10px;
   background-color: var(--background);
   display: flex;
@@ -163,6 +163,53 @@ input[type="checkbox"] {
   display: none;
 }
 
+.todo {
+  cursor: move; /* Indicates item is draggable */
+  user-select: none; /* Prevents text selection while dragging */
+  touch-action: none; /* Prevents scrolling while dragging on mobile */
+  position: relative;
+  z-index: 1;
+  transition: background-color 0.2s ease, transform 0.2s ease; /* Combined transitions */
+}
+
+.todo.dragging {
+  opacity: 0.8;
+  background-color: rgba(64, 224, 208, 0.8);
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 2; /* Ensure dragging item is above others */
+}
+
+.drag-handle {
+  padding: 5px;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: move; /* Cursor indicates draggable */
+}
+
+.drag-handle svg {
+  fill: var(--secondary-color);
+  transition: 200ms ease;
+}
+
+.drag-handle:hover svg {
+  fill: var(--accent-color);
+}
+
+@media (max-width: 500px) {
+  .todo {
+    /* Add to existing mobile styles */
+    touch-action: none;
+  }
+
+  .todo.dragging {
+    transform: scale(1.01);
+  }
+}
+
 /* For Mobile Devices */
 @media (max-width: 500px) {
   html {
@@ -179,20 +226,20 @@ input[type="checkbox"] {
     font-size: 15pt;
     background-color: var(--accent-color);
     color: var(--background);
+    transition: transform 0.15s ease-in-out;
   }
 
   #add-button:active {
-    transition: ease;
     transform: scale(0.96);
   }
 
   .delete-button svg {
-    transition: ease;
-    fill: rgba(255, 0, 0, 0.5);
+    transition: transform 0.15s ease-in-out;
+    fill: rgba(255, 0, 0, 0.8);
   }
 
   .delete-button:active svg {
-    transform: scale(0.95);
+    transform: scale(0.9);
   }
 
   h1 {
